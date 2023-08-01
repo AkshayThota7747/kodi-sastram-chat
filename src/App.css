@@ -1,0 +1,16 @@
+* {
+  margin: 0;
+}
+
+.rce-citem:hover {
+  background-color: #8391a1;
+}
+.rce-citem {
+  background-color: #687078;
+}
+.rce-citem-body--top {
+  color: #ffffff;
+}
+.rce-citem-body--bottom-title {
+  color: #d0e6ff;
+}

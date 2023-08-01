@@ -1,0 +1,70 @@
+{
+  "project_info": {
+    "project_number": "1033442553182",
+    "firebase_url": "https://kodisastram-default-rtdb.firebaseio.com",
+    "project_id": "kodisastram",
+    "storage_bucket": "kodisastram.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1033442553182:android:08e214812ce2e0f91fb3cf",
+        "android_client_info": {
+          "package_name": "app.kodi.sastram"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1033442553182-3nonjfo6c2qio74v0teim3npmbqu22ca.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsZJJFz0Mp-zghDls2w3gydEgyQsLGIcA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1033442553182-3nonjfo6c2qio74v0teim3npmbqu22ca.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1033442553182:android:33339aa802e03b911fb3cf",
+        "android_client_info": {
+          "package_name": "kodi.sastram"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1033442553182-3nonjfo6c2qio74v0teim3npmbqu22ca.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsZJJFz0Mp-zghDls2w3gydEgyQsLGIcA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1033442553182-3nonjfo6c2qio74v0teim3npmbqu22ca.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-9858016532756970~2432883142"
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: SFPRO;
+  src: url("../src/assets/fonts/SF-Pro-Text-Regular.otf") format("opentype");
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for Firefox */
+body {
+  scrollbar-width: none !important;
+}
+
+html,
+body {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* For WebKit-based browsers */
+  -webkit-tap-highlight-color: transparent; /* For older Safari versions */
+  -moz-tap-highlight-color: rgba(0, 0, 0, 0); /* For older Firefox versions */
+  tap-highlight-color: rgba(0, 0, 0, 0); /* For newer versions of Firefox */
+}
