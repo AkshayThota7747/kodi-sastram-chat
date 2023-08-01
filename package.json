@@ -1,7 +1,7 @@
 {
   "name": "kodi-sastram-chat",
   "version": "0.1.0",
-  "homepage": "https://gitname.github.io/KodiSastramChat/",
+  "homepage": "https://gitname.github.io/kodi-sastram-chat/",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.1",
