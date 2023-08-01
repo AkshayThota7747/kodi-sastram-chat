@@ -45,3 +45,5 @@
     # Office Temp Files
     ~$*
     node_modules
+    node_modules/
+    build/
