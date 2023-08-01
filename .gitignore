@@ -44,7 +44,6 @@
     
     # Office Temp Files
     ~$*
-    node_modules
-    node_modules/
     build/
     *.vscode/
+node_modules
