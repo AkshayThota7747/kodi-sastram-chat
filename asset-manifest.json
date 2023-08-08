@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/kodi-sastram-chat/static/css/main.27dfb0d2.css",
-    "main.js": "/kodi-sastram-chat/static/js/main.48531938.js",
-    "static/js/787.a15f691c.chunk.js": "/kodi-sastram-chat/static/js/787.a15f691c.chunk.js",
+    "main.js": "/kodi-sastram-chat/static/js/main.8fa65d10.js",
+    "static/js/787.427a90af.chunk.js": "/kodi-sastram-chat/static/js/787.427a90af.chunk.js",
     "static/media/SF-Pro-Text-Regular.otf": "/kodi-sastram-chat/static/media/SF-Pro-Text-Regular.6a39aa208dfcb99af10a.otf",
     "static/media/click-sound.wav": "/kodi-sastram-chat/static/media/click-sound.4373782cd3def71dd662.wav",
     "index.html": "/kodi-sastram-chat/index.html",
     "main.27dfb0d2.css.map": "/kodi-sastram-chat/static/css/main.27dfb0d2.css.map",
-    "main.48531938.js.map": "/kodi-sastram-chat/static/js/main.48531938.js.map",
-    "787.a15f691c.chunk.js.map": "/kodi-sastram-chat/static/js/787.a15f691c.chunk.js.map"
+    "main.8fa65d10.js.map": "/kodi-sastram-chat/static/js/main.8fa65d10.js.map",
+    "787.427a90af.chunk.js.map": "/kodi-sastram-chat/static/js/787.427a90af.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.27dfb0d2.css",
-    "static/js/main.48531938.js"
+    "static/js/main.8fa65d10.js"
   ]
 }
