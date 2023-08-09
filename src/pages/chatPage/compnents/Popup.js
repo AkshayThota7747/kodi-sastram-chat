@@ -9,11 +9,15 @@ const Popup = ({ file, onClose, onSend, isSending }) => {
 
   return (
     <div className="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-70 flex items-center justify-center z-50">
-      <div className="flex flex-col items-center justify-center relative w-[90%] max-h-[75vh] p-4 rounded-lg bg-[#535C66]">
+      <div className="flex flex-col items-center justify-center relative w-[90%] max-h-[75vh] p-4 rounded-lg bg-[#535C66] ">
         <button
-          className=" text-white bg-red-500 p-2 rounded-lg ml-auto text-white focus:outline-none mb-1"
+          className=" text-white bg-red-500 p-2 flex items-center justify-center rounded-lg ml-auto text-white focus:outline-none mb-3"
           disabled={isSending}
           onClick={onClose}
+          style={{
+            borderRadius: '20px',
+            height: '36px',
+          }}
         >
           <CloseRoundedIcon fontSize="small" className="text-white h-2 w-2 mr-1" />
           Close
@@ -51,8 +55,12 @@ const Popup = ({ file, onClose, onSend, isSending }) => {
           </button>
         ) : (
           <button
-            className="text-lg ml-auto p-2 flex items-center justify-center text-white bg-blue-500 rounded-lg focus:outline-none mt-1"
+            className="text-lg ml-auto p-2 flex items-center justify-center text-white bg-blue-500 rounded-lg focus:outline-none mt-3"
             onClick={onSend}
+            style={{
+              borderRadius: '20px',
+              height: '36px',
+            }}
           >
             Send <SendRoundedIcon fontSize="small" className="text-white h-2 w-2 ml-1" />
           </button>

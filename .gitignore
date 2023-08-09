@@ -47,3 +47,4 @@
     build/
     *.vscode/
 node_modules
+build

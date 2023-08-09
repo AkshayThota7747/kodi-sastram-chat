@@ -19,7 +19,7 @@ const Home = () => {
   const [isFetching, setIsFetching] = useState(false);
 
   const validateUser = (user) => {
-    if (user.email && user.uid && user.phoneNumber && user.username && user.photoURL) {
+    if (user.uid && user.phoneNumber && user.username && user.photoURL) {
       return true;
     } else {
       return false;

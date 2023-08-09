@@ -18,6 +18,13 @@ import ChatToolbar from "./compnents/ChatToolbar";
 import { startRecording, stopRecording } from "./chatUtil";
 import { AttachmentButton } from "./compnents/AttachmentIcon";
 
+const fileTypeStyles = {
+  color: '#fff',
+  marginLeft: '5px',
+  fontSize: '14px'
+}
+
+
 const UserChatPage = () => {
   const location = useLocation();
 
@@ -81,8 +88,17 @@ const UserChatPage = () => {
       ? "audio"
       : "file";
 
-    const imageRef = ref(storage, `${fileType}/${inputFile.name + v4()}`);
+      try {
+        window.NativeInterface.showFullscreenAdInChat();
+      }catch(e){
+        console.log('Failed to Call Native Ad from ChatPage', e)
+      }  
+    const fileName = inputFile.name;
+    const imageRef = ref(storage, `${fileType}/${v4() + fileName}`);
     await uploadBytes(imageRef, inputFile).then(async (snapshot) => {
+      setIsSending(false);
+      handleOnFileClose();
+
       const createdDate = new Date();
       await getDownloadURL(snapshot.ref).then(async (url) => {
         await updateDoc(doc(db, "chats", chatId), {
@@ -93,27 +109,24 @@ const UserChatPage = () => {
             from: doc(db, "users", `${auth.currentUser.uid}`),
             messageType: fileType,
             createdAt: createdDate,
-            filename: inputFile.name,
+            filename: fileName,
           }),
         })
           .then(async (res) => {
             await updateDoc(doc(db, "userChats", auth.currentUser.uid), {
               [chatId + ".lastMessage"]: {
-                message: `${fileType}: ${inputFile.name}`,
+                message: `${fileType}: ${fileName}`,
               },
               [chatId + ".date"]: createdDate,
             });
             await updateDoc(doc(db, "userChats", location.state.userId), {
               [chatId + ".lastMessage"]: {
-                message: `${fileType}: ${inputFile.name}`,
+                message: `${fileType}: ${fileName}`,
               },
               [chatId + ".date"]: createdDate,
             });
           })
-          .then((res) => {
-            setIsSending(false);
-            handleOnFileClose();
-          });
+          .then((res) => {});
       });
     });
   };
@@ -137,12 +150,15 @@ const UserChatPage = () => {
   const handleSendTextMessage = async () => {
     setIsSending(true);
     if (inputText.trim() !== "") {
+      const message = inputText.trim();
+      setInputText("");
+      if (message !== "") {
       const createdDate = new Date();
 
       await updateDoc(doc(db, "chats", chatId), {
         messages: arrayUnion({
           id: v4(),
-          message: inputText.trim(),
+          message: message,
           fromUsername: auth.currentUser.displayName,
           from: doc(db, "users", `${auth.currentUser.uid}`),
           messageType: "text",
@@ -152,13 +168,13 @@ const UserChatPage = () => {
         .then(async (res) => {
           await updateDoc(doc(db, "userChats", auth.currentUser.uid), {
             [chatId + ".lastMessage"]: {
-              message: inputText.trim(),
+              message: message,
             },
             [chatId + ".date"]: createdDate,
           });
           await updateDoc(doc(db, "userChats", location.state.userId), {
             [chatId + ".lastMessage"]: {
-              message: inputText.trim(),
+              message: message,
             },
             [chatId + ".date"]: createdDate,
           });
@@ -167,7 +183,7 @@ const UserChatPage = () => {
           setIsSending(false);
           setInputText("");
         });
-    }
+    }}
   };
 
   useEffect(() => {
@@ -176,7 +192,7 @@ const UserChatPage = () => {
   }, [chatId]);
 
   return (
-    <div className="relative h-screen flex flex-col  bg-[#1A1D1F]">
+    <div className="relative h-screen flex flex-col  bg-[#1A1D1F]" onClick={ () => showOptions && setShowOptions(false) }>
       {messageList ? (
         <MessageListComponent
           messageList={messageList}
@@ -195,8 +211,11 @@ const UserChatPage = () => {
         />
       </div>
       {/* bottom-[5vh] for cct */}
-      <div className="px-4 py-3 flex justify-between absolute bottom-2 w-full z-[50] bg-[#1A1D1F]">
-        <div className="flex felx-1 w-full mx-2">
+      <div className="px-4 py-3 flex justify-between absolute bottom-2 w-full z-[50] bg-[#1A1D1F] items-center">
+        <div className="flex felx-1 w-full mx-2" style={{
+          borderRadius: '50px',
+          overflow: 'hidden'
+        }}>
           <button
             key="addButton"
             className="bg-[#8391A1] rounded-l-2xl text-blue-500 focus:outline-none pl-2"
@@ -213,7 +232,7 @@ const UserChatPage = () => {
           />
         </div>
 
-        {isSending ? (
+        {/* {isSending ? (
           <button
             key="sendButton"
             onClick={() => {}}
@@ -244,10 +263,26 @@ const UserChatPage = () => {
           >
             Send <SendRoundedIcon fontSize="small" className="text-white ml-2" />
           </button>
-        )}
+        )} */}
+        <button
+          key="sendButton"
+          onClick={handleSendTextMessage}
+          disabled={inputText.trim() === ""}
+          className="text-blue-500 p-2 focus:outline-none flex justify-center items-center text-white bg-blue-500 rounded-lg focus:outline-none"
+          style={{
+            borderRadius: '20px',
+            height: '36px',
+          }}
+        >
+          Send <SendRoundedIcon fontSize="small" className="text-white ml-2" />
+        </button>
 
         {showOptions && (
-          <div className="absolute flex justify-around left-6 bottom-12 mb-2 w-32 bg-white rounded-md shadow-lg py-2 z-10">
+          <div className="absolute flex flex-col justify-around left-6 bottom-12 mb-2 bg-white rounded-md shadow-lg py-2 z-10 w-28" style={{
+            backgroundColor: 'rgb(83, 92, 102)'
+          }} onClick={
+            (e) => e.stopPropagation()
+          }>
             <AttachmentButton
               id={"fileInputPhoto"}
               accept={".jpg,.jpeg,.png,.gif"}
@@ -255,6 +290,7 @@ const UserChatPage = () => {
               handleOptionSelection={handleOptionSelection}
             >
               <ImageRoundedIcon className="text-gray-400 text-[20px]" />
+              <span style={fileTypeStyles}>Photo</span>
             </AttachmentButton>
             <AttachmentButton
               id={"fileInputVideo"}
@@ -263,6 +299,7 @@ const UserChatPage = () => {
               handleOptionSelection={handleOptionSelection}
             >
               <VideocamRoundedIcon className="text-gray-400 text-[20px]" />
+              <span style={fileTypeStyles}>Video</span>
             </AttachmentButton>
             <AttachmentButton
               id={"fileInputFile"}
@@ -271,11 +308,14 @@ const UserChatPage = () => {
               handleOptionSelection={handleOptionSelection}
             >
               <UploadFileRoundedIcon className="text-gray-400 text-[20px]" />
+              <span style={fileTypeStyles}>File</span>
             </AttachmentButton>
           </div>
         )}
       </div>
-      {showFilePopup && <Popup file={inputFile} onSend={handleOnFileSend} onClose={handleOnFileClose} />}
+      {showFilePopup && (
+        <Popup file={inputFile} onSend={handleOnFileSend} onClose={handleOnFileClose} isSending={isSending} />
+      )}
 
       {/* h-[5vh] for cct */}
       <div className=" w-full bg-[#1A1D1F]"></div>

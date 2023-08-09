@@ -15,6 +15,7 @@ const Login = () => {
   const [showOtpField, setShowOtpField] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState("91");
+  const [errText, setErrText] = useState("");
 
   const [isSendingOTP, setIsSendingOTP] = useState(false);
   const [isVerifyingOTP, setIsVerifyingOTP] = useState(false);
@@ -67,6 +68,7 @@ const Login = () => {
   };
 
   const handleOtpSubmit = async (e) => {
+    setErrText("");
     setIsVerifyingOTP(true);
     console.log(`Phone: ${phoneNumber}, OTP: ${phoneotp}`);
     await window.confirmationResult
@@ -78,6 +80,7 @@ const Login = () => {
       })
       .catch((error) => {
         setIsVerifyingOTP(false);
+        setErrText("Invalid OTP");
         console.log(error);
         alert("Incorrect OTP");
       });
@@ -118,12 +121,12 @@ const Login = () => {
   return (
     <div className="relative font-primary">
       <div
-        className={`flex items-center justify-center h-screen bg-opacity-50 bg-gray-900 fixed inset-0 bg-gray-900 bg-opacity-50 transition-opacity ${
+        className={`flex items-center justify-center h-screen bg-black fixed inset-0 bg-black transition-opacity ${
           showPopup ? "opacity-50" : "opacity-100 "
         }`}
       >
         <div className="bg-gray-800 bg-opacity-70 rounded shadow-lg p-8 w-80">
-          <h1 className="text-center text-2xl font-bold text-white mb-4">Kodisastram</h1>
+          <h1 className="text-center text-2xl font-bold text-white mb-4">🐓 Kodi Sastram 🐓</h1>
           <form>
             {/* <div className="flex mb-4"> */}
             <div className="relative inline-flex w-full mr-1 my-2">
@@ -146,7 +149,7 @@ const Login = () => {
 
             <input
               type="text"
-              placeholder="Phone Number"
+              placeholder="Mobile Number"
               className="text-white text-center w-full bg-gray-700 bg-opacity-50 border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white my-2"
               value={phoneNumber}
               onChange={handlePhoneNumberInputChange}
@@ -174,8 +177,12 @@ const Login = () => {
                   placeholder="OTP"
                   className="text-white text-center w-full bg-gray-700 bg-opacity-50 border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-2"
                   value={phoneotp}
-                  onChange={(e) => setPhoneotp(e.target.value)}
+                  onChange={(e) => {
+                    setErrText("");
+                    setPhoneotp(e.target.value);
+                  }}
                 />
+                {errText && <div className="text-center text-red-500">{errText}</div>}
 
                 <button
                   type="button"

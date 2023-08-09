@@ -44,7 +44,7 @@ const Navbar = ({ tabs, activeTab, setActiveTab }) => {
                   className="text-center w-full block px-2 py-2 text-gray-800 hover:bg-gray-200"
                   onClick={handleLogout}
                 >
-                  Log Out
+                  Logout
                 </button>
               </li>
             </ul>

@@ -3,18 +3,22 @@ import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import CustomPopup from "./CustomPopup";
 import { useNavigate } from "react-router-dom";
 
-const ChatToolbar = ({ avatar, title, description, groupSize }) => {
+const ChatToolbar = ({ avatar, title, description, groupSize, showToolbarPopup, toggleToolbarPopup = () => {} }) => {
   const navigate = useNavigate();
 
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const handlePopupOpen = () => {
     setIsPopupOpen(true);
+    toggleToolbarPopup(true);
   };
 
   const handlePopupClose = () => {
     setIsPopupOpen(false);
+    toggleToolbarPopup(false);
   };
+
+  const showPopup = showToolbarPopup ?? isPopupOpen;
 
   return (
     <div className="bg-[#111315] text-[#FBFBFB] py-4 px-8 flex items-center shadow-md">
@@ -34,9 +38,32 @@ const ChatToolbar = ({ avatar, title, description, groupSize }) => {
       </button>
 
       {groupSize && (
-        <CustomPopup isOpen={isPopupOpen} onClose={handlePopupClose}>
-          <div className="text-center">
-            <h3 className="text-lg text-gray-600 font-bold mb-2">Total users in the group: {groupSize}</h3>
+        <CustomPopup isOpen={showPopup} onClose={handlePopupClose}>
+          <div className="text-start">
+            <h3 className="text-lg text-gray-600 font-italic mb-2" style={{
+            color: '#CCC'
+          }} >
+            <br/>
+            <span style={{ color: '#FFDF00', fontWeight: 'bold', fontSize: '20px' }}>
+            Group Description:
+            <br />
+              Total users in the group: {3000 + groupSize}
+            </span>
+            <br/>
+            <span style={{ fontSize: '18px' }}>
+            1. Group lo evaru kuda poratam cheyaradhu
+            <br/>
+            2. Group lo photos and videos baytaki share cheyaradhu
+            <br/>
+            3. Group lo kodlaki sambandinchinavi thappa vere discussions pettakudadhu
+            <br/>
+            4. Evaraina Chat lo thappu ga behave chesthe, varini ventane app nundi block cheyadam jaruguthundi.
+            <br/>
+            </span>
+            <span style={{ color: '#e1a95f'}}>
+            Meeru evartho aina personal ga chat cheyali anukunte, edaina group lo vari photo medha click chesinattu aithe variki message pampagalaru
+            </span>
+            </h3>
             {description && <p className="text-gray-600">{description}</p>}
           </div>
         </CustomPopup>

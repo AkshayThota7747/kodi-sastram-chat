@@ -23,7 +23,7 @@ const Details = () => {
   const [isUpdating, setIsUpdating] = useState(false);
 
   const validateUser = (user) => {
-    if (user.email && user.uid && user.phoneNumber && user.username && user.photoURL) {
+    if (user.uid && user.phoneNumber && user.username && user.photoURL) {
       return true;
     } else return false;
   };
@@ -90,7 +90,7 @@ const Details = () => {
         }).then(async (res) => {
           const updatedUser = {
             username: auth.currentUser.displayName,
-            email: auth.currentUser.email,
+            email: auth.currentUser.email || "",
             phoneNumber: auth.currentUser.phoneNumber,
             photoURL: auth.currentUser.photoURL || photoURLPlaceholder,
             uid: auth.currentUser.uid,
@@ -123,7 +123,7 @@ const Details = () => {
         photoURL: auth.currentUser.photoURL || photoURLPlaceholder,
       }).catch((e) => console.log("err", e));
     }
-    if (!auth.currentUser.email) {
+    if (!auth.currentUser.email && email !== "") {
       await updateEmail(auth.currentUser, email).catch((e) => console.log("err", e));
     }
   };
@@ -134,7 +134,7 @@ const Details = () => {
       .then(async (res) => {
         const updatedUser = {
           username: auth.currentUser.displayName,
-          email: auth.currentUser.email,
+          email: auth.currentUser.email || "",
           phoneNumber: auth.currentUser.phoneNumber,
           photoURL: auth.currentUser.photoURL,
           uid: auth.currentUser.uid,
@@ -168,12 +168,12 @@ const Details = () => {
   return (
     <div className="relative font-primary">
       <div
-        className={`flex items-center justify-center h-screen bg-opacity-50 bg-gray-900 fixed inset-0 bg-gray-900 bg-opacity-50 transition-opacity
+        className={`flex items-center justify-center h-screen bg-black fixed inset-0 bg-black transition-opacity
          
         }`}
       >
         <div className="bg-gray-800 bg-opacity-70 rounded shadow-lg p-8 w-80">
-          <h1 className="text-center text-2xl font-bold text-white mb-4">Kodisastram</h1>
+          <h1 className="text-center text-2xl font-bold text-white mb-4">🐓 Kodi Sastram 🐓</h1>
           {!auth.currentUser?.phoneNumber && (
             <>
               <h1 className="text-center text-xl font-bold text-white mb-4">Verify Phone Number</h1>
@@ -202,7 +202,7 @@ const Details = () => {
 
                 <input
                   type="text"
-                  placeholder="Phone Number"
+                  placeholder="Mobile Number"
                   className="text-white text-center w-full bg-gray-700 bg-opacity-50 border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white my-2"
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
@@ -254,7 +254,7 @@ const Details = () => {
             <>
               <div className="mb-4">
                 <label htmlFor="username" className="block text-gray-300 font-medium mb-2">
-                  username
+                  Enter your Display Name
                 </label>
                 <input
                   type="text"
@@ -266,7 +266,7 @@ const Details = () => {
               </div>
               <div className="mb-4">
                 <label htmlFor="email" className="text-centerblock text-gray-300 font-medium mb-2">
-                  email
+                    Email Id (optional)
                 </label>
                 <input
                   type="email"

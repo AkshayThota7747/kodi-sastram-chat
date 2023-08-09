@@ -30,6 +30,7 @@ const MessageListComponent = forwardRef(({ messageList, loggedInUserId, scrollTo
 
         const props = {
           onDownload: (e) => {
+            console.log("Add Video Ad");
             const fileUrl = message.data.uri;
             const link = document.createElement("a");
             link.href = fileUrl;
@@ -62,10 +63,14 @@ const MessageListComponent = forwardRef(({ messageList, loggedInUserId, scrollTo
               <>
                 {message.from !== loggedInUserId ? (
                   <div
-                    className={`cursor-pointer w-[130px] h-[34px] flex items-center justify-center text-white bg-[#8391A1] rounded-md z-50 ml-2`}
+                    className={`cursor-pointer w-[150px] h-[34px] flex items-center justify-center text-white bg-[#8391A1] rounded-md z-50 ml-2`}
                     onClick={async () => {
                       setIsReplyPrivtelyLoader(true);
                       await handleOpenUserChat(message.from, navigate, setIsReplyPrivtelyLoader);
+                    }}
+                    style={{
+                      borderRadius: '20px',
+                      height: '36px'
                     }}
                   >
                     <ReplyRoundedIcon className="pr-1" />
@@ -117,10 +122,14 @@ const MessageListComponent = forwardRef(({ messageList, loggedInUserId, scrollTo
 
             {showPreview && messageId === message.id && (
               <div className="absolute fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-70 flex items-center justify-center z-50">
-                <div className="flex flex-col items-center justify-center relative w-[90%] max-h-[75vh] p-4 rounded-lg bg-[#535C66]">
+                <div className="flex flex-col items-center justify-center relative w-[90%] max-h-[75vh] p-4 pt-3 rounded-lg bg-[#535C66]">
                   <button
-                    className="text-white bg-red-500 p-2 rounded-lg ml-auto text-white focus:outline-none mb-1"
+                    className="text-white bg-red-500 p-2 flex items-center justify-center rounded-lg ml-auto text-white focus:outline-none mb-3"
                     onClick={handleOnPreviewClose}
+                    style={{
+                      borderRadius: '20px',
+                      height: '36px',
+                    }}
                   >
                     <CloseRoundedIcon fontSize="small" className="text-white h-2 w-2 mr-1" />
                     Close
